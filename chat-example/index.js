@@ -19,3 +19,5 @@ http.listen(3000, function(){
   console.log('listening on *:3000');
 });
 
+//If you run node index.js you should 'listening on *:3000' 
+//And if you point your browser to http://localhost:3000
