@@ -1,9 +1,13 @@
 /*
+Emitting events
+The main idea behind Socket.IO is that you can send and 
+eceive any events you want, with any data you want. Any
+ objects that can be encoded as JSON will do, and binary
+ data is supported too.
 
-Express initializes app to be a function handler that you can supply to an HTTP server (as seen in line 2).
-We define a route handler / that gets called when we hit our website home.
-We make the http server listen on port 3000.
-
+Let’s make it so that when the user types in a message, 
+the server gets it as a chat message event. The scripts 
+ection in index.html should now look as follows:
 */
 
 
@@ -17,12 +21,18 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
-  console.log('a user connected');
+
+	console.log('a user connected');
+	
+	socket.on('chat message', function(msg){
+    	console.log('message: ' + msg);
+  	});
+  	
+  	socket.on('disconnect', function(){
+    	console.log('user disconnected');
+  	});
 });
 
 http.listen(3000, function(){
   console.log('listening on *:3000');
 });
-
-//If you run node index.js you should 'listening on *:3000' 
-//And if you point your browser to http://localhost:3000
